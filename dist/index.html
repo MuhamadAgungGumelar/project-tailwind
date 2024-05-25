@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.2/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body class="h-full w-full">
+    <!-- Header -->
+    <header
+      x-data="{ isOpen: false, isOn: false, isActive: false }"
+      class="inset-x-0 top-0 z-50 bg-purple-100"
+    >
+      <nav
+        class="mx-auto flex max-w-7xl items-center justify-between p-6 pb-12 lg:px-8"
+        aria-label="Global"
+      >
+        <div class="flex lg:flex-1 lg:gap-x-2">
+          <a href="#" class="-m-1.5 p-1.5">
+            <span class="sr-only">Your Company</span>
+            <svg
+              width="37"
+              height="37"
+              viewBox="0 0 37 37"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18.375 10.0625C18.375 14.7224 14.5974 18.5 9.9375 18.5H1.5V10.0625C1.5 5.40259 5.27759 1.625 9.9375 1.625C14.5974 1.625 18.375 5.40259 18.375 10.0625Z"
+                fill="#762BEB"
+              />
+              <path
+                d="M18.375 26.9375C18.375 22.2776 22.1526 18.5 26.8125 18.5H35.25V26.9375C35.25 31.5974 31.4724 35.375 26.8125 35.375C22.1526 35.375 18.375 31.5974 18.375 26.9375Z"
+                fill="#762BEB"
+              />
+              <path
+                d="M1.5 26.9375C1.5 31.5974 5.27759 35.375 9.9375 35.375H18.375V26.9375C18.375 22.2776 14.5974 18.5 9.9375 18.5C5.27759 18.5 1.5 22.2776 1.5 26.9375Z"
+                fill="#762BEB"
+              />
+              <path
+                d="M35.25 10.0625C35.25 5.40259 31.4724 1.625 26.8125 1.625H18.375V10.0625C18.375 14.7224 22.1526 18.5 26.8125 18.5C31.4724 18.5 35.25 14.7224 35.25 10.0625Z"
+                fill="#762BEB"
+              />
+            </svg>
+
+            <a href="" class="leading-6 text-gray-900 p-1.5 text-2xl font-black"
+              >XINLI<span aria-hidden="true"></span
+            ></a>
+          </a>
+        </div>
+        <div class="flex lg:hidden">
+          <button
+            @click="isActive = !isActive"
+            type="button"
+            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+          >
+            <span class="sr-only">Open main menu</span>
+            <svg
+              x-show="!isActive"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+            <svg
+              x-show="isActive"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="hidden lg:flex lg:gap-x-12">
+          <a href="#home" class="text-sm font-semibold leading-6 text-gray-900"
+            >Feature</a
+          >
+          <a href="#home" class="text-sm font-semibold leading-6 text-gray-900"
+            >Pricing</a
+          >
+          <a href="#blog" class="text-sm font-semibold leading-6 text-gray-900"
+            >Docs</a
+          >
+          <a
+            href="#contact"
+            class="text-sm font-semibold leading-6 text-gray-900"
+            >Showcase</a
+          >
+        </div>
+        <div class="hidden lg:flex lg:gap-x-10 lg:flex-1 lg:justify-end">
+          <a
+            href="{{ route('login') }}"
+            class="text-sm font-semibold leading-6 text-gray-900 p-2"
+            >Sign in <span aria-hidden="true"></span
+          ></a>
+          <a
+            href="{{ route('login') }}"
+            class="text-sm font-semibold leading-6 text-center text-white bg-purple-700 p-2 rounded-lg border-solid border-t-2 border-l-2 border-r-4 border-b-4 border-black w-24 hover:bg-purple-500"
+            >Sign up <span aria-hidden="true"></span
+          ></a>
+        </div>
+      </nav>
+      <!-- Mobile menu, show/hide based on menu open state. -->
+      <div x-show="isActive" class="lg:hidden" role="dialog" aria-modal="true">
+        <!-- Background backdrop, show/hide based on slide-over state. -->
+        <div class="fixed inset-0 z-10"></div>
+        <div
+          class="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+        >
+          <div class="flex items-center justify-between">
+            <a href="#" class="-m-1.5 p-1.5">
+              <span class="sr-only">Your Company</span>
+              <img
+                class="h-8 w-auto"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                alt=""
+              />
+            </a>
+            <button
+              @click="isActive = !isActive"
+              type="button"
+              class="-m-2.5 rounded-md p-2.5 text-gray-700"
+            >
+              <span class="sr-only">Close menu</span>
+              <svg
+                x-show="isActive"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="mt-6 flow-root">
+            <div class="-my-6 divide-y divide-gray-500/10">
+              <div class="space-y-2 py-6">
+                <a
+                  href="#"
+                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >Features</a
+                >
+                <a
+                  href="#"
+                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >Pricing</a
+                >
+                <a
+                  href="#"
+                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >Docs</a
+                >
+                <a
+                  href="#"
+                  class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >Showcase</a
+                >
+              </div>
+              <div class="py-6">
+                <a
+                  href="#"
+                  class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >Log in</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="bg-purple-100">
+      <div
+        class="flex gap-y-4 items-center justify-center mx-auto p-6 gap-x-40 lg:px-8 lg:flex-row max-w-7xl"
+      >
+        <div class="flex flex-col flex-1 gap-y-5">
+          <h1 class="font-extrabold text-5xl">
+            Explore Business Insight Analytics
+          </h1>
+          <h3 class="font-medium text-sm">
+            Make a better decision based on what your customer needs without
+            compromising your business value propositions.
+          </h3>
+          <div class="flex gap-x-2">
+            <div class="flex">
+              <img
+                class="rounded-full border-2 border-white"
+                src="img/orang1.png"
+                alt=""
+              />
+              <img
+                class="rounded-full border-2 border-white"
+                src="img/orang2.png"
+                alt=""
+              />
+              <img
+                class="rounded-full border-2 border-white"
+                src="img/orang3.png"
+                alt=""
+              />
+            </div>
+            <div class="flex items-center">
+              <h4 class="font-semibold text-sm">Join 28K global founders</h4>
+            </div>
+          </div>
+          <div class="flex gap-x-6">
+            <a
+              class="text-center text-white bg-purple-700 p-3 rounded-lg border-t-2 border-l-2 border-r-4 border-b-4 border-black w-36 hover:bg-purple-500"
+              href=""
+              >Try Free Trial</a
+            >
+            <a
+              class="text-center text-black bg-white p-3 rounded-lg border-t-2 border-l-2 border-r-4 border-b-4 border-black w-36 hover:bg-slate-300"
+              href=""
+              >Call Sales</a
+            >
+          </div>
+        </div>
+        <div class="flex lg:flex-1 justify-end" id="rectangle">
+          <div
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-96"
+          ></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Section 1 -->
+    <section
+      class="flex flex-col justify-center mx-auto p-6 gap-x-40 lg:px-8 max-w-7xl"
+    >
+      <div class="flex justify-center my-10 font-extrabold text-3xl">
+        <h1>All Integrations Available</h1>
+      </div>
+      <div class="flex flex-col gap-y-5">
+        <div class="flex justify-center gap-x-6">
+          <div
+            id="Logo1"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo1.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Figma</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+          <div
+            id="Logo2"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo2.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Figma</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+          <div
+            id="Logo3"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo3.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Trello</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+          <div
+            id="Logo4"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo4.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Figma</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+          <div
+            id="Logo5"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo5.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Figma</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center gap-x-6">
+          <div
+            id="Logo6"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo6.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Figma</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+          <div
+            id="Logo7"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo7.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Figma</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+          <div
+            id="Logo8"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo8.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Trello</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+          <div
+            id="Logo9"
+            class="flex flex-grow-1 justify-center bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-xl size-20 w-56 p-3 gap-x-2"
+          >
+            <img src="img/logo9.png" alt="" />
+            <div>
+              <h1 class="font-extrabold">Figma</h1>
+              <h2 class="font-medium">Design Software</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 -->
+    <section
+      class="flex flex-row justify-center mx-auto p-6 gap-x-40 lg:px-8 max-w-7xl my-10"
+    >
+      <div class="flex flex-row flex-1 justify-start z-0">
+        <!-- <div
+          id="circle"
+          class="absolute bg-purple-400 transform-gpu overflow-hidden blur-3xl border-t-2 border-l-2 border-r-4 border-b-4 rounded-full size-96"
+        ></div> -->
+        <div>
+          <svg
+            width="648"
+            height="629"
+            viewBox="0 0 648 629"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g filter="url(#filter0_f_2_163)">
+              <ellipse
+                cx="324.293"
+                cy="314.661"
+                rx="183.5"
+                ry="152.334"
+                transform="rotate(35.9359 324.293 314.661)"
+                fill="#EDD8EF"
+              />
+            </g>
+            <defs>
+              <filter
+                id="filter0_f_2_163"
+                x="0.867981"
+                y="0.918823"
+                width="646.851"
+                height="627.484"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="75"
+                  result="effect1_foregroundBlur_2_163"
+                />
+              </filter>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 absolute">
+          <div
+            id="rectangle1"
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-3xl size-40 relative z-1"
+            style="top: 52px; left: 52px; height: 12rem"
+          ></div>
+          <div
+            id="rectangle2"
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-3xl size-40 relative h-48"
+            style="height: 12rem"
+          ></div>
+          <div
+            id="rectangle3"
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-3xl size-40 relative h-48"
+            style="left: 162px; top: 28px; height: 12rem"
+          ></div>
+          <div
+            id="rectangle4"
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-3xl size-40 relative h-48"
+            style="bottom: 53px; left: 78px; height: 12rem"
+          ></div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-y-10 flex-1">
+        <div class="flex flex-col gap-y-10">
+          <h1 class="font-extrabold text-4xl">AI-Powered System</h1>
+          <h2 class="font-medium">
+            Make a better decision based on what your customer needs without
+            compromising your business value propositions.
+          </h2>
+        </div>
+        <div class="flex flex-col gap-y-6">
+          <div class="flex gap-x-4">
+            <svg
+              width="80"
+              height="81"
+              viewBox="0 0 80 81"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="0.625" width="80" height="80" rx="40" fill="#0B0A2F" />
+              <path
+                opacity="0.6"
+                d="M36.85 27.2916C36.7167 27.7916 36.6667 28.3416 36.6667 28.9583V33.9583H28.3334V30.625C28.3334 28.7916 29.8334 27.2916 31.6667 27.2916H36.85Z"
+                fill="white"
+              />
+              <path
+                d="M36.6667 52.2917V33.9584H28.3334C25 33.9584 23.3334 35.625 23.3334 38.9584V52.2917C23.3334 55.625 25 57.2917 28.3334 57.2917H41.6667C38.3334 57.2917 36.6667 55.625 36.6667 52.2917ZM31.25 48.9584C31.25 49.6417 30.6834 50.2084 30 50.2084C29.3167 50.2084 28.75 49.6417 28.75 48.9584V42.2917C28.75 41.6084 29.3167 41.0417 30 41.0417C30.6834 41.0417 31.25 41.6084 31.25 42.2917V48.9584Z"
+                fill="white"
+              />
+              <path
+                opacity="0.4"
+                d="M43.3333 57.2917H41.6666C38.3333 57.2917 36.6666 55.625 36.6666 52.2917V28.9584C36.6666 25.625 38.3333 23.9584 41.6666 23.9584H51.6666C55 23.9584 56.6666 25.625 56.6666 28.9584V52.2917C56.6666 55.625 55 57.2917 51.6666 57.2917H50"
+                fill="white"
+              />
+              <path
+                d="M50 50.625V57.2917H43.3334V50.625C43.3334 49.7084 44.0834 48.9584 45 48.9584H48.3334C49.25 48.9584 50 49.7084 50 50.625Z"
+                fill="white"
+              />
+              <path
+                d="M43.3334 43.5417C42.65 43.5417 42.0834 42.975 42.0834 42.2917V33.9584C42.0834 33.275 42.65 32.7084 43.3334 32.7084C44.0167 32.7084 44.5834 33.275 44.5834 33.9584V42.2917C44.5834 42.975 44.0167 43.5417 43.3334 43.5417Z"
+                fill="white"
+              />
+              <path
+                d="M50 43.5417C49.3167 43.5417 48.75 42.975 48.75 42.2917V33.9584C48.75 33.275 49.3167 32.7084 50 32.7084C50.6833 32.7084 51.25 33.275 51.25 33.9584V42.2917C51.25 42.975 50.6833 43.5417 50 43.5417Z"
+                fill="white"
+              />
+            </svg>
+            <div class="flex flex-col gap-y-2">
+              <h1 class="font-extrabold">Digital Marketing</h1>
+              <h2 class="font-medium">
+                Make a better decision based on what your customer needs without
+                compromising.
+              </h2>
+            </div>
+          </div>
+          <div class="flex gap-x-4">
+            <svg
+              width="80"
+              height="81"
+              viewBox="0 0 80 81"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="0.625" width="80" height="80" rx="40" fill="#0B0A2F" />
+              <path
+                opacity="0.4"
+                d="M56.6667 33.6417V36.475C56.6667 37.7584 55.3 38.525 54.1667 37.925C51.7167 36.6084 48.7667 36.0917 45.6667 36.7417C43.6667 37.1584 41.8167 38.0917 40.3 39.375C39.4334 40.0917 38.6667 40.9417 38.0167 41.875C37.1167 43.1917 36.4501 44.6917 36.1167 46.2917C35.4667 49.3917 35.9834 52.3417 37.3 54.7917C37.9 55.925 37.1334 57.2917 35.8501 57.2917H33.0167C27.6667 57.2917 23.3334 52.9584 23.3334 47.6084V33.6417C23.3334 28.2917 27.6667 23.9584 33.0167 23.9584H46.9834C52.3334 23.9584 56.6667 28.2917 56.6667 33.6417Z"
+                fill="white"
+              />
+              <path
+                d="M40.3 39.375C39.4334 40.0917 38.6667 40.9417 38.0167 41.875H23.3334V39.375H40.3Z"
+                fill="white"
+              />
+              <path
+                d="M30 35.625C29.3167 35.625 28.75 35.0583 28.75 34.375V31.0416C28.75 30.3583 29.3167 29.7916 30 29.7916C30.6833 29.7916 31.25 30.3583 31.25 31.0416V34.375C31.25 35.0583 30.6833 35.625 30 35.625Z"
+                fill="white"
+              />
+              <path
+                d="M36.6666 35.625C35.9833 35.625 35.4166 35.0583 35.4166 34.375V31.0416C35.4166 30.3583 35.9833 29.7916 36.6666 29.7916C37.35 29.7916 37.9166 30.3583 37.9166 31.0416V34.375C37.9166 35.0583 37.35 35.625 36.6666 35.625Z"
+                fill="white"
+              />
+              <path
+                d="M30 51.875C29.3167 51.875 28.75 51.3083 28.75 50.625V47.2916C28.75 46.6083 29.3167 46.0416 30 46.0416C30.6833 46.0416 31.25 46.6083 31.25 47.2916V50.625C31.25 51.3083 30.6833 51.875 30 51.875Z"
+                fill="white"
+              />
+              <path
+                d="M50 33.9584H43.3334C42.65 33.9584 42.0834 33.3917 42.0834 32.7084C42.0834 32.025 42.65 31.4584 43.3334 31.4584H50C50.6834 31.4584 51.25 32.025 51.25 32.7084C51.25 33.3917 50.6834 33.9584 50 33.9584Z"
+                fill="white"
+              />
+              <path
+                d="M48.3334 38.9584C42.8167 38.9584 38.3334 43.4417 38.3334 48.9584C38.3334 54.475 42.8167 58.9584 48.3334 58.9584C53.85 58.9584 58.3334 54.475 58.3334 48.9584C58.3334 43.4417 53.85 38.9584 48.3334 38.9584ZM53.2167 50.9584C52.95 51.6084 52.5667 52.1917 52.0667 52.6917C51.0667 53.6917 49.75 54.2417 48.3334 54.2417C47.2 54.2417 46.1334 53.875 45.2334 53.2084V53.4417C45.2334 53.9584 44.8167 54.3917 44.2834 54.3917C43.7667 54.3917 43.3334 53.975 43.3334 53.4417V51.0417C43.3334 50.525 43.7501 50.0917 44.2834 50.0917H46.6834C47.2001 50.0917 47.6334 50.5084 47.6334 51.0417C47.6334 51.525 47.2834 51.8917 46.8167 51.9584C48.0834 52.575 49.7 52.375 50.7167 51.3584C51.0334 51.0417 51.2834 50.6584 51.45 50.2417C51.65 49.7584 52.2 49.525 52.6833 49.725C53.1833 49.9084 53.4167 50.475 53.2167 50.9584ZM53.3334 46.8917C53.3334 47.4084 52.9167 47.8417 52.3834 47.8417H49.9834C49.4667 47.8417 49.0334 47.425 49.0334 46.8917C49.0334 46.4084 49.3834 46.0417 49.85 45.975C48.5834 45.3584 46.9667 45.5584 45.9334 46.575C45.65 46.8584 45.4334 47.175 45.2667 47.525C45.1 47.875 44.7667 48.075 44.4167 48.075C44.2834 48.075 44.15 48.0417 44.0167 47.9917C43.55 47.775 43.3334 47.2084 43.5667 46.725C43.8334 46.175 44.1834 45.675 44.6001 45.2417C45.6001 44.2417 46.9167 43.6917 48.3334 43.6917C49.4667 43.6917 50.5333 44.0584 51.4333 44.725V44.5084C51.4333 43.9917 51.85 43.5584 52.3834 43.5584C52.9167 43.5584 53.3334 43.9584 53.3334 44.4917V46.8917Z"
+                fill="white"
+              />
+            </svg>
+
+            <div class="flex flex-col gap-y-2">
+              <h1 class="font-extrabold">Digital Marketing</h1>
+              <h2 class="font-medium">
+                Make a better decision based on what your customer needs without
+                compromising.
+              </h2>
+            </div>
+          </div>
+          <div class="flex gap-x-4">
+            <svg
+              width="80"
+              height="81"
+              viewBox="0 0 80 81"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect y="0.625" width="80" height="80" rx="40" fill="#0B0A2F" />
+              <path
+                opacity="0.4"
+                d="M37.4833 24.3416L29.1667 27.4583C27.25 28.175 25.6833 30.4416 25.6833 32.4916V44.8749C25.6833 46.8416 26.9834 49.425 28.5667 50.6083L35.7333 55.9583C38.0833 57.7249 41.95 57.7249 44.3 55.9583L51.4667 50.6083C53.05 49.425 54.35 46.8416 54.35 44.8749V32.4916C54.35 30.4416 52.7833 28.175 50.8667 27.4583L42.55 24.3416C41.1333 23.8249 38.8667 23.8249 37.4833 24.3416Z"
+                fill="white"
+              />
+              <path
+                d="M39.8333 39.4583C39.8666 39.4583 39.8999 39.4583 39.9332 39.4583H39.9666H39.9999C41.9166 39.3917 43.4166 37.8417 43.4333 35.9083C43.4333 33.9417 41.8333 32.3417 39.8666 32.3417C37.9 32.3417 36.2999 33.9417 36.2999 35.9083C36.3333 37.825 37.8333 39.3917 39.8333 39.4583Z"
+                fill="white"
+              />
+              <path
+                d="M43.65 42.975C41.6333 41.6416 38.3666 41.6416 36.3333 42.975C35.3999 43.6083 34.85 44.5083 34.85 45.4416C34.85 46.3916 35.3833 47.2583 36.3333 47.8916C37.3499 48.5583 38.6666 48.9083 39.9833 48.9083C41.3 48.9083 42.6333 48.575 43.6333 47.8916C44.5666 47.2583 45.1166 46.3583 45.1166 45.425C45.1333 44.475 44.6 43.6083 43.65 42.975Z"
+                fill="white"
+              />
+            </svg>
+
+            <div class="flex flex-col gap-y-2">
+              <h1 class="font-extrabold">Digital Marketing</h1>
+              <h2 class="font-medium">
+                Make a better decision based on what your customer needs without
+                compromising.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section
+      class="flex flex-col justify-center items-center mx-auto p-6 gap-x-40 gap-y-8 lg:px-8"
+    >
+      <div class="flex flex-col items-center gap-y-5" style="width: 30rem">
+        <h1 class="font-extrabold text-4xl">Built For Business</h1>
+        <h2 class="font-medium text-center">
+          Make a better decision based on what your customer needs without
+          compromising your business value propositions.
+        </h2>
+      </div>
+      <div class="flex my-4 gap-x-20">
+        <div class="flex flex-col flex-1 gap-y-5">
+          <div
+            id="rectangle2"
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-3xl size-40 relative"
+            style="height: 12rem"
+          ></div>
+          <h1 class="font-extrabold">Digital Marketing</h1>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+        </div>
+        <div class="flex flex-col flex-1 gap-y-5">
+          <div
+            id="rectangle2"
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-3xl size-40 relative h-48"
+            style="height: 12rem"
+          ></div>
+          <h1 class="font-extrabold">Digital Marketing</h1>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+        </div>
+        <div class="flex flex-col flex-1 gap-y-5">
+          <div
+            id="rectangle2"
+            class="bg-white border-t-2 border-l-2 border-r-4 border-b-4 border-black rounded-3xl size-40 relative h-48"
+            style="height: 12rem"
+          ></div>
+          <h1 class="font-extrabold">Digital Marketing</h1>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+          <div class="flex gap-x-2">
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 30 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 27.5C21.9036 27.5 27.5 21.9036 27.5 15C27.5 8.09644 21.9036 2.5 15 2.5C8.09644 2.5 2.5 8.09644 2.5 15C2.5 21.9036 8.09644 27.5 15 27.5Z"
+                fill="#0B0A2F"
+              />
+              <path
+                d="M13.225 19.475C12.975 19.475 12.7375 19.375 12.5625 19.2L9.02499 15.6625C8.66249 15.3 8.66249 14.7 9.02499 14.3375C9.38749 13.975 9.98749 13.975 10.35 14.3375L13.225 17.2125L19.65 10.7875C20.0125 10.425 20.6125 10.425 20.975 10.7875C21.3375 11.15 21.3375 11.75 20.975 12.1125L13.8875 19.2C13.7125 19.375 13.475 19.475 13.225 19.475Z"
+                fill="white"
+              />
+            </svg>
+
+            <h2 class="font-medium">Remarkable charts manage</h2>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
